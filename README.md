@@ -82,3 +82,7 @@ Get Account Keys: https://learn.microsoft.com/en-us/azure/storage/common/storage
 - docker compose up -d: To turn on airflow and run it in background (Recommended)
 - docker compose down && docker compose up -d: Normal Restart
 - docker compose down && docker compose up --build -d: Restart forcing to build docker file (Only when dockerfile is updated)
+
+```
+~ docker exec -it [CONTAINER_ID] bash
+```

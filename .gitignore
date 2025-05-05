@@ -9,3 +9,8 @@ Thumbs.db
 logs/
 
 __pycache__
+
+.env.prod
+.env.prod.*
+.env.dev
+.env.dev.*

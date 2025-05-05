@@ -81,6 +81,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
     - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
     - ${AIRFLOW_PROJ_DIR:-.}/scripts:/opt/airflow/scripts
+    - /Users/alexisvasquez/.ssh/id_rsa_odoo:/opt/airflow/.ssh/id_rsa_odoo
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -121,6 +122,8 @@ services:
 
   airflow-apiserver:
     <<: *airflow-common
+    env_file:
+      - .env
     command: api-server
     ports:
       - "8080:8080"
@@ -138,6 +141,8 @@ services:
 
   airflow-scheduler:
     <<: *airflow-common
+    env_file:
+      - .env
     command: scheduler
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://localhost:8974/health"]
@@ -153,6 +158,8 @@ services:
 
   airflow-dag-processor:
     <<: *airflow-common
+    env_file:
+      - .env
     command: dag-processor
     healthcheck:
       test: ["CMD-SHELL", 'airflow jobs check --job-type DagProcessorJob --hostname "$${HOSTNAME}"']
@@ -168,6 +175,8 @@ services:
 
   airflow-worker:
     <<: *airflow-common
+    env_file:
+      - .env
     command: celery worker
     healthcheck:
       # yamllint disable rule:line-length
@@ -193,6 +202,8 @@ services:
 
   airflow-triggerer:
     <<: *airflow-common
+    env_file:
+      - .env
     command: triggerer
     healthcheck:
       test: ["CMD-SHELL", 'airflow jobs check --job-type TriggererJob --hostname "$${HOSTNAME}"']
@@ -208,6 +219,8 @@ services:
 
   airflow-init:
     <<: *airflow-common
+    env_file:
+      - .env
     entrypoint: /bin/bash
     # yamllint disable rule:line-length
     command:
@@ -270,6 +283,8 @@ services:
 
   airflow-cli:
     <<: *airflow-common
+    env_file:
+      - .env
     profiles:
       - debug
     environment:

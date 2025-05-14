@@ -13,6 +13,14 @@ class DBHostConfig:
         self.host = host
         self.port = port
 
+class AzureConfig:
+    def __init__(self, tenant_id: str, client_id: str, client_secret: str, storage_account_name: str, container_name: str):
+        self.tenant_id      = tenant_id
+        self.client_id      = client_id
+        self.client_secret  = client_secret
+        self.account_url    = f"https://{storage_account_name}.blob.core.windows.net"
+        self.container_name = container_name
+
 class OdooConfig:
     def __init__(self, remote: DBHostConfig, local: DBHostConfig, name: Optional[str], user: Optional[str], pwd: Optional[str]):
         self.remote = remote
@@ -43,4 +51,12 @@ class Config:
             name        =   os.getenv('DB_NAME'),
             user        =   os.getenv('DB_USER'),
             pwd         =   os.getenv('DB_PASSWORD')
+        )
+
+        self.azure = AzureConfig(
+            tenant_id=os.getenv('AZURE_TENANT_ID'),
+            client_id=os.getenv('AZURE_CLIENT_ID'),
+            client_secret=os.getenv('AZURE_CLIENT_SECRET'),
+            storage_account_name=os.getenv('AZURE_STORAGE_ACCOUNT_NAME'),
+            container_name=os.getenv('AZURE_CONTAINER_NAME')
         )

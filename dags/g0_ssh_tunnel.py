@@ -3,6 +3,7 @@ from pendulum import datetime, timezone
 import logging, time
 
 from services.ssh import SSHService
+from services.odoo import OdooService
 
 from config.app import Config
 
@@ -30,6 +31,10 @@ def ssh_tunnel_dag():
             time.sleep(3)
             ssh_service.connect_to_db()
             time.sleep(2)
+            odoo_service = OdooService(ssh_service.connection)
+            df_tickets_win = odoo_service.direct_consult("tickets_win")
+            print("---df_tickets_win---")
+            print(df_tickets_win.head())
         except Exception as ex:
             print("Error al establecer la conexión SSH o a la base de datos:", ex)
             log.error("Error al establecer la conexión SSH o a la base de datos:", ex)

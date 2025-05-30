@@ -33,7 +33,7 @@ def ssh_tunnel_dag():
             time.sleep(2)
             odoo_service = OdooService(ssh_service.connection)
             df_tickets_win = odoo_service.direct_consult("tickets_win")
-            df_tickets_win.to_parquet(f"/opt/airflow/data/tickets_win.parquet", engine="pyarrow", index=False)
+            df_tickets_win.to_parquet(f"{config.platform.storage_local}/tickets_win.parquet", engine="pyarrow", index=False)
         except Exception as ex:
             print("Error al establecer la conexión SSH o a la base de datos:", ex)
             log.error("Error al establecer la conexión SSH o a la base de datos:", ex)

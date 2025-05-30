@@ -29,6 +29,10 @@ class OdooConfig:
         self.user   = user
         self.pwd    = pwd
 
+class Platform:
+    def __init__(self, storage_local: str):
+        self.storage_local = storage_local
+
 class Config:
     def __init__(self):
         load_dotenv()
@@ -59,4 +63,8 @@ class Config:
             client_secret=os.getenv('AZURE_CLIENT_SECRET'),
             storage_account_name=os.getenv('AZURE_STORAGE_ACCOUNT_NAME'),
             container_name=os.getenv('AZURE_CONTAINER_NAME')
+        )
+
+        self.platform = Platform(
+            storage_local=os.getenv('STORAGE_LOCAL')
         )

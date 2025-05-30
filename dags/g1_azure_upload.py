@@ -48,7 +48,7 @@ def ssh_azure_upload_dag():
             azure_service = Azure(config=config)
 
             # origin_path = "dags/g1_azure_upload.txt" # Dynamic
-            origin_path = "/opt/airflow/data/tickets_win.parquet"
+            origin_path = f"{config.platform.storage_local}/tickets_win.parquet"
             target_path = "test/tickets_win.parquet" # Fixed
             azure_service.upload_to_adls(
                 origin_path = origin_path,

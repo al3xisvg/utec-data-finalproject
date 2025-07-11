@@ -5,3 +5,4 @@ pandas
 azure-identity
 azure-storage-blob
 pyarrow
+pymongo

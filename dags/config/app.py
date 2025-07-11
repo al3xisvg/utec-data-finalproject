@@ -29,6 +29,10 @@ class OdooConfig:
         self.user   = user
         self.pwd    = pwd
 
+class MongoDBConfig:
+    def __init__(self, srv: str):
+        self.srv = srv
+
 class Platform:
     def __init__(self, storage_local: str):
         self.storage_local = storage_local
@@ -57,14 +61,18 @@ class Config:
             pwd         =   os.getenv('DB_PASSWORD')
         )
 
+        self.mongodb=MongoDBConfig(
+            srv         = os.getenv('MONGODB_SRV')
+        )
+
         self.azure = AzureConfig(
-            tenant_id=os.getenv('AZURE_TENANT_ID'),
-            client_id=os.getenv('AZURE_CLIENT_ID'),
-            client_secret=os.getenv('AZURE_CLIENT_SECRET'),
-            storage_account_name=os.getenv('AZURE_STORAGE_ACCOUNT_NAME'),
-            container_name=os.getenv('AZURE_CONTAINER_NAME')
+            tenant_id               = os.getenv('AZURE_TENANT_ID'),
+            client_id               = os.getenv('AZURE_CLIENT_ID'),
+            client_secret           = os.getenv('AZURE_CLIENT_SECRET'),
+            storage_account_name    = os.getenv('AZURE_STORAGE_ACCOUNT_NAME'),
+            container_name          = os.getenv('AZURE_CONTAINER_NAME')
         )
 
         self.platform = Platform(
-            storage_local=os.getenv('STORAGE_LOCAL')
+            storage_local   = os.getenv('STORAGE_LOCAL')
         )

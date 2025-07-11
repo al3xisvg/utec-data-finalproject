@@ -36,24 +36,25 @@ def upload_dag():
             
             # Local file path (this must exist in your container or volume)
             # local_file_path = "/opt/airflow/data/sample.txt"
-            local_file_path = f"{config.platform.storage_local}/tickets_win.parquet"
-            
-            # Container name in your blob storage
-            container_name = "datalake"
-            
-            # The name the blob will have in Azure
-            # blob_name = "datalake/raw/airflow/G01/tickets_win.parquet"
-            blob_name = "raw/airflow/G01/tickets_win.parquet"
+            for item in ['tickets_win', 'accounts', 'requirements']:
+                local_file_path = f"{config.platform.storage_local}/{item}.parquet"
+                
+                # Container name in your blob storage
+                container_name = "datalake"
+                
+                # The name the blob will have in Azure
+                # blob_name = "datalake/raw/airflow/G01/{item}.parquet"
+                blob_name = f"raw/airflow/G01/{item}.parquet"
 
-            # Upload the file
-            hook.load_file(
-                file_path=local_file_path,
-                container_name=container_name,
-                blob_name=blob_name,
-                overwrite=True
-            )
+                # Upload the file
+                hook.load_file(
+                    file_path=local_file_path,
+                    container_name=container_name,
+                    blob_name=blob_name,
+                    overwrite=True
+                )
 
-            print(f"Uploaded {local_file_path} to {container_name}/{blob_name}")
+                print(f"Uploaded {local_file_path} to {container_name}/{blob_name}")
         except Exception as ex:
             print("Error al inventar subir a Blob Storage:", ex)
             log.error("Error al inventar subir a Blob Storage:", ex)

@@ -81,7 +81,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
     - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
     - ${AIRFLOW_PROJ_DIR:-.}/scripts:/opt/airflow/scripts
-    - /Users/alexisvasquez/.ssh/id_rsa_odoo:/opt/airflow/.ssh/id_rsa_odoo
+    - /mnt/c/Users/henry/.ssh/id_rsa_odoo:/opt/airflow/.ssh/id_rsa_odoo
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on

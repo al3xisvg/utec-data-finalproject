@@ -55,8 +55,8 @@ def ssh_azure_upload_dag():
                 target_path = target_path
             )
         except Exception as ex:
-            print("Error al establecer la conexión SSH o a la base de datos:", ex)
-            log.error("Error al establecer la conexión SSH o a la base de datos:", ex)
+            print("Error al intentar subir a Azure Blob Storage:", ex)
+            log.error("Error al intentar subir a Azure Blob Storage:", ex)
 
     ssh_azure_upload()
 
